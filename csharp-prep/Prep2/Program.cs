@@ -9,6 +9,7 @@ class Program
         string nmgradeAnswer = Console.ReadLine();
         int nmgrade = int.Parse(nmgradeAnswer);
 
+        // Determine letter grade
         string nmletter;
         if (nmgrade >= 90)
         {
@@ -31,7 +32,10 @@ class Program
             nmletter = "F";
         }
         
+        // Display grade
         Console.WriteLine($"Grade: {nmletter}");
+
+        // Determine if passed and display result
         if (nmgrade >= 70)
         {
             Console.WriteLine("Congratulations, you passed the class!");
