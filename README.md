@@ -1,5 +1,6 @@
 # cse210-student-template
-Noah Merrell
+Noah W Merrell
+
 For students in CSE 210.
 
 This repository contains the starter code for many different projects. They are arranged as follows:
