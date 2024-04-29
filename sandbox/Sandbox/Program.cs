@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Prints hello
+        // Prints message
         Console.WriteLine("Hello Sandbox World!");
     }
 }
