@@ -1,5 +1,6 @@
 public class Prompt
 {
+    // Creates list of prompts
     static public List<string> _prompts = new List<string>{
         "What are three things that made you smile today, and why?",
         "Describe a challenge you faced recently and how you overcame it.",
@@ -23,14 +24,15 @@ public class Prompt
         "Write about a dream or aspiration you have for your future, and what steps you can take to move closer to it."
     };
 
+    // Randomly generates a prompt
     public static string Generate()
     {
-        List<string> _prompts = Prompt._prompts;
         Random random = new Random();
         int randomIndex = random.Next(0,_prompts.Count);
-        return _prompts[randomIndex];
+        return Prompt.Select(randomIndex);
     }
 
+    // Returns a prompt based on index
     public static string Select(int index)
     {
         List<string> _prompts = Prompt._prompts;

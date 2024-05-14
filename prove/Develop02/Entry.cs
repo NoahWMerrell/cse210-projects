@@ -6,6 +6,7 @@ public class Entry
     public string _input;
     public string _prompt;
 
+    // Entry constructor
     public Entry(DateTime dateTime, string input, string prompt)
     {
         _dateTime = dateTime;
@@ -13,6 +14,7 @@ public class Entry
         _prompt = prompt;
     }
 
+    // Creates an Entry with input
     public static Entry Create(string input)
     {
         DateTime currentDate = DateTime.Now;
@@ -25,6 +27,7 @@ public class Entry
         return "test";
     }
 
+    // Displays an entry
     public static void Display(Entry entry)
     {
         Console.WriteLine($"Prompt: {entry._prompt}");
