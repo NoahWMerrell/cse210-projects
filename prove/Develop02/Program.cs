@@ -6,40 +6,59 @@ class Program
     // public static Journal currentJournal;
     static void Main(string[] args)
     {
-        Entry newEntry = Entry.Create("I had a wonderful day!");
-        Entry newEntry2 = Entry.Create("I did something awesome!");
-        // Entry.Display(newEntry);
-
-        // string filePath = "data.txt";
-        // SaveJournal(filePath, "Hello world!");
-
-        // string data = LoadJournal(filePath);
-        // Console.WriteLine($"Text read from {filePath}: {data}");
-
-        Journal newJournal = new Journal();
-        newJournal._entries.Add(newEntry);
-        newJournal._entries.Add(newEntry2);
-
-        Journal.DisplayEntries(newJournal);
+        Console.WriteLine("Welcome to the Journal Program!");
+        MenuLoop();
     }
 
-    // Saves Journal to text file
-    static void SaveJournal(string filePath, string data)
-    {
-        using (StreamWriter writer = new StreamWriter(filePath))
-        {
-            writer.WriteLine(data);
-        }
-    }
+    // Menu that is looped for program
+    static void MenuLoop(){
+        Journal tempJournal = new Journal();
+        int option = 0;
+        // Loop will only stop if 5 is inputted
+        while (option != 5) {
+            Console.WriteLine("Please select one of the following choices:");
+            Console.WriteLine("1. Write\n2. Display\n3. Load\n4. Save\n5. Quit");
 
-    // Returns string of information contained in text file
-    static string LoadJournal(string filePath)
-    {
-        string data = "";
-        using (StreamReader reader = new StreamReader(filePath))
-        {
-            data = reader.ReadToEnd();
+            // Receive input from user
+            Console.Write("What would you like to do? ");
+            string optionStr = Console.ReadLine();
+
+            // Detect if it isn't an integer and will display error
+            if (!int.TryParse(optionStr, out option))
+            {
+                Console.WriteLine("Invalid input! Please enter an integer.");
+                continue;
+            }
+            option = int.Parse(optionStr);
+
+            // Write an entry for tempJournal
+            if (option == 1)
+            {
+                tempJournal._entries.Add(Entry.Create());
+            }
+            // Display all entries in tempJournal
+            else if (option == 2)
+            {
+                Journal.Display(tempJournal);
+            }
+            // Load entries from text file
+            else if (option == 3)
+            {
+                Journal.Load(tempJournal);
+            }
+            // Save entries to text file
+            else if (option == 4)
+            {
+                Journal.Save(tempJournal);
+            }
+            // Display error if input is not valid
+            else
+            {
+                if (option != 5)
+                {
+                    Console.WriteLine("Invalid input! Please enter a valid option.");
+                }
+            }
         }
-        return data;
     }
 }

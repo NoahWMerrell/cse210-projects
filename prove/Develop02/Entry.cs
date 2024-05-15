@@ -15,23 +15,20 @@ public class Entry
     }
 
     // Creates an Entry with input
-    public static Entry Create(string input)
+    public static Entry Create()
     {
         DateTime currentDate = DateTime.Now;
         string prompt = Prompt.Generate();
+        string input;
+        Console.WriteLine($"{prompt}");
+        input = Console.ReadLine();
         return new Entry(currentDate, input, prompt);
-    }
-
-    public static string GetEntry()
-    {
-        return "test";
     }
 
     // Displays an entry
     public static void Display(Entry entry)
     {
-        Console.WriteLine($"Prompt: {entry._prompt}");
-        Console.WriteLine($"Created: {entry._dateTime}");
+        Console.WriteLine($"Created: {entry._dateTime} - Prompt: {entry._prompt}");
         Console.WriteLine($"{entry._input}");
     }
 }
