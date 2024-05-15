@@ -7,13 +7,20 @@ class Program
     static void Main(string[] args)
     {
         Entry newEntry = Entry.Create("I had a wonderful day!");
-        Entry.Display(newEntry);
+        Entry newEntry2 = Entry.Create("I did something awesome!");
+        // Entry.Display(newEntry);
 
-        string filePath = "data.txt";
-        SaveJournal(filePath, "Hello world!");
+        // string filePath = "data.txt";
+        // SaveJournal(filePath, "Hello world!");
 
-        string data = LoadJournal(filePath);
-        Console.WriteLine($"Text read from {filePath}: {data}");
+        // string data = LoadJournal(filePath);
+        // Console.WriteLine($"Text read from {filePath}: {data}");
+
+        Journal newJournal = new Journal();
+        newJournal._entries.Add(newEntry);
+        newJournal._entries.Add(newEntry2);
+
+        Journal.DisplayEntries(newJournal);
     }
 
     // Saves Journal to text file
