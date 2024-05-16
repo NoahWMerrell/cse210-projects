@@ -24,8 +24,71 @@ public class Prompt
         "Write about a dream or aspiration you have for your future, and what steps you can take to move closer to it."
     };
 
-    // Randomly generates a prompt
+    // Determines if 
     public static string Generate()
+    {
+        Console.WriteLine("1. Random\n2. Select");
+        Console.Write("How should the prompt be determined? ");
+        string optionStr = Console.ReadLine();
+        int option = 0;
+        string prompt = "";
+
+        // Detect if it isn't an integer and will display error
+        do
+        {
+            if (!int.TryParse(optionStr, out option))
+            {
+                Console.WriteLine("Invalid input! Please enter an integer.");
+                continue;
+            }
+            option = int.Parse(optionStr);
+            if (option == 1)
+            {
+                prompt = Prompt.Random();
+            }
+            else if (option == 2)
+            {
+                // Display all prompts
+                for (int i = 0; i < Prompt._prompts.Count; i++)
+                {
+                    Console.WriteLine($"{i+1}. {_prompts[i]}");
+                }
+                // Get user input for prompt selection
+                int promptIndex;
+                do
+                {
+                    Console.Write("Which option would you like? ");
+                    string promptIndexStr = Console.ReadLine();
+
+                    // Detect if it isn't an integer and will display error
+                    if (!int.TryParse(promptIndexStr, out promptIndex))
+                    {
+                        Console.WriteLine("Invalid input! Please enter an integer.");
+                        continue;
+                    }
+
+                    // Check if prompt is range of list
+                    if (promptIndex < 1 || promptIndex > Prompt._prompts.Count)
+                    {
+                        Console.WriteLine("Invalid input! Please enter a valid prompt index.");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                } while (true);
+                prompt = Prompt._prompts[promptIndex - 1];
+            }
+            else
+            {
+                Console.WriteLine("Invalid input! Please enter valid option.");
+            }
+        } while ((option != 1) && (option != 2));
+        return prompt;
+    }
+    
+    // Randomly generates a prompt
+    public static string Random()
     {
         Random random = new Random();
         int randomIndex = random.Next(0,_prompts.Count);

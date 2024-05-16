@@ -18,7 +18,7 @@ public class Journal
     // Saves Journal to text file
     public static void Save(Journal journal)
     {
-        Console.WriteLine("What would you like to save the filename as (Include '.txt')?");
+        Console.WriteLine("What would you like to save the filename as?");
         string filename = Console.ReadLine();
         using (StreamWriter writer = new StreamWriter(filename))
         {
@@ -34,7 +34,7 @@ public class Journal
     public static Journal Load(Journal journal)
     {
         // Asks for filename to load
-        Console.WriteLine("What is the filename to load (Include '.txt')?");
+        Console.WriteLine("What is the filename to load?");
         string filename = Console.ReadLine();
 
         // Determines if file exists

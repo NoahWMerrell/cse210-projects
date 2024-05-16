@@ -4,3 +4,6 @@ Kindness, listener, and caring.
 5/15/2024 5:14:03 PM
 Describe a challenge you faced recently and how you overcame it.
 I had a lot of homework and overcame it by committing myself to finishing it.
+5/15/2024 6:21:02 PM
+Reflect on a difficult decision you had to make recently and how you concluded.
+I had to decide what I was going to add creatively to this assignment. I eventually decided to give the user the option to select which prompt they want.

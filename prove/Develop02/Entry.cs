@@ -20,6 +20,8 @@ public class Entry
         DateTime currentDate = DateTime.Now;
         string prompt = Prompt.Generate();
         string input;
+
+        // Display prompt and receive input from user
         Console.WriteLine($"{prompt}");
         input = Console.ReadLine();
         return new Entry(currentDate, input, prompt);
