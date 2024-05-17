@@ -3,7 +3,6 @@ using System.Threading.Tasks.Dataflow;
 
 class Program
 {
-    // public static Journal currentJournal;
     static void Main(string[] args)
     {
         Console.WriteLine("Welcome to the Journal Program!");
