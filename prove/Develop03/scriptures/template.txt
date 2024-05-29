@@ -1,0 +1,2 @@
+Template 1 2-3
+This is a sample template. For the reference 'Template' is the book, 1 is the chapter, 2 is the start verse, and 3 is the end verse (or 0 if there is none).

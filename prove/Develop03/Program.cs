@@ -5,29 +5,16 @@ class Program
 {
     static void Main(string[] args)
     {
-        Scripture moroni = new Scripture(
-            new Reference("Moroni", 10, 5, 0),
-            new List<Word>{
-                new Word("And"),
-                new Word("by"),
-                new Word("the"),
-                new Word("power"),
-                new Word("of"),
-                new Word("the"),
-                new Word("Holy"),
-                new Word("Ghost"),
-                new Word("ye"),
-                new Word("may"),
-                new Word("know"),
-                new Word("the"),
-                new Word("truth"),
-                new Word("of"),
-                new Word("all"),
-                new Word("things.")
-            });
-        // Scripture jacob = new Scripture();
-        // jacob.CreateFromText("Jacob 6 12 0","O be wise; what can I say more?");
-        ScriptureLoop(moroni);
+        Scripture tempScripture = new Scripture();
+        tempScripture.SelectFromFile();
+        if (tempScripture.IsInvalid())
+        {
+            Console.WriteLine("Scripture is invalid. Exiting program.");
+        }
+        else
+        {
+            ScriptureLoop(tempScripture);
+        }
     }
 
     public static void ScriptureLoop(Scripture tempScripture)
