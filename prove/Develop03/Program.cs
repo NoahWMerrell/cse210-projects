@@ -25,6 +25,8 @@ class Program
                 new Word("all"),
                 new Word("things.")
             });
+        // Scripture jacob = new Scripture();
+        // jacob.CreateFromText("Jacob 6 12 0","O be wise; what can I say more?");
         ScriptureLoop(moroni);
     }
 

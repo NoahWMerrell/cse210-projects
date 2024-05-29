@@ -3,7 +3,8 @@ public class Scripture
     private Reference _reference;
     private List<Word> _words = new List<Word>();
 
-    // Constructor
+    // Constructors
+    public Scripture() {}
     public Scripture(Reference reference, List<Word> words)
     {
         _reference = reference;
@@ -65,5 +66,28 @@ public class Scripture
             word.Display();
             Console.Write(" ");
         }
+    }
+
+    // Creates a scripture from two strings
+    public void CreateFromText(string referenceText, string text)
+    {
+        // Goes through each element in referenceText
+        var referenceParts = referenceText.Split(' ');
+        var book = referenceParts[0];
+        var chapter = int.Parse(referenceParts[1]);
+        var verses = referenceParts[2].Split('-');
+        var verseStart = int.Parse(verses[0]);
+        var verseEnd = int.Parse(verses[1]);
+
+        Reference reference = new Reference(book, chapter, verseStart, verseEnd);
+
+        // Split the string into Words
+        var wordList = new List<string>(text.Split(' ', StringSplitOptions.RemoveEmptyEntries));
+
+        // Creates a list of words
+        List<Word> words = wordList.Select(wordText => new Word(wordText)).ToList();
+
+        _reference = reference;
+        _words = words;
     }
 }
