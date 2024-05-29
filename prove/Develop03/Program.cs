@@ -1,6 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
 
+
+/*
+For the creative portion I had the program ask the user for a filename and it automatically will read the information in the file
+(assuming proper formatting of it) and use that scripture for the scripture memorizer. These scriptures are included in the
+"scriptures" folder and it is the default directory, meaning the program will always look for files in that folder
+(and there's no need to add "scriptures/" to the filename). For testing purposes you can just type "template.txt" to see.
+*/
 class Program
 {
     static void Main(string[] args)
