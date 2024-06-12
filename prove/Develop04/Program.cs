@@ -30,8 +30,8 @@ class Program
             }
             else if (input == 3)
             {
-                Console.WriteLine("Listing activity...");
-                Thread.Sleep(5000);
+                Listing tempListing = new Listing();
+                tempListing.RunListing();
             }
             else
             {
