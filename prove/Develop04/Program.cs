@@ -1,6 +1,12 @@
 using System;
 using System.Reflection;
 
+/*
+For the creative portion I did a few things. Firstly, the program checks to make sure when entering in numbers
+that they are integers. Second, it will verify the integer is within the specified range, that being 1-5 for
+the menu and 10-3600 for the activity durations (the program will inform you if you are outside of these ranges).
+Finally, I added another activity called Stretching which guides you through a short arm stretch exercise.
+*/
 class Program
 {
     static void Main(string[] args)
