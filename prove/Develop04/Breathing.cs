@@ -7,6 +7,8 @@ public class Breathing : Activity
     public void RunBreathing()
     {
         DisplayWelcome();
+
+        // Continues to run for duration
         DateTime endTime = DateTime.Now.AddSeconds(_duration);
         while (DateTime.Now < endTime)
         {
@@ -15,6 +17,7 @@ public class Breathing : Activity
             Console.Write("\nBreathe out...");
             Countdown(6);
         }
+        
         DisplayEnd();
     }
 }

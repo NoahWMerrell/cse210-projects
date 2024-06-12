@@ -19,26 +19,31 @@ class Program
             input = SelectInput("Select a choice from the menu: ", 1, 5);
             if (input == 1)
             {
+                // Breathing activity
                 Breathing tempBreathing = new Breathing();
                 tempBreathing.RunBreathing();
             }
             else if (input == 2)
             {
+                // Reflecting activity
                 Reflecting tempReflecting = new Reflecting();
                 tempReflecting.RunReflecting();
             }
             else if (input == 3)
             {
+                // Listing activity
                 Listing tempListing = new Listing();
                 tempListing.RunListing();
             }
             else if (input == 4)
             {
+                // Stretching activity
                 Stretching tempStretching = new Stretching();
                 tempStretching.RunStretching();
             }
             else
             {
+                // When you select quit
                 Console.WriteLine("\nThank you for using the Mindfulness program! You have a wonderful day!");
             }
         }

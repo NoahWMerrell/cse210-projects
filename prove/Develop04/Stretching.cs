@@ -7,6 +7,8 @@ public class Stretching : Activity
     public void RunStretching()
     {
         DisplayWelcome();
+
+        // Continues to run for duration
         DateTime endTime = DateTime.Now.AddSeconds(_duration);
         while (DateTime.Now < endTime)
         {
@@ -17,6 +19,7 @@ public class Stretching : Activity
             Console.Write("\nStretch down to touch your toes...");
             Countdown(5);
         }
+        
         DisplayEnd();
     }
 }

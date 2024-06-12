@@ -21,6 +21,8 @@ public class Listing : Activity
         Console.WriteLine("You may begin in: ");
         Countdown(5);
         int listCount = 0;
+
+        // Continues to run for duration and counts number of items
         DateTime endTime = DateTime.Now.AddSeconds(_duration);
         while (DateTime.Now < endTime)
         {
@@ -31,6 +33,7 @@ public class Listing : Activity
             }
         }
         Console.Write($"You listed {listCount} items!");
+
         DisplayEnd();
     }
 
