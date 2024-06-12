@@ -1,12 +1,12 @@
 using System;
+using System.Reflection;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Activity activity = new Activity("Test", "An activity for testing purposes.");
+        // Animation(5);
         MenuLoop();
-        activity.DisplayWelcome();
     }
 
     // Runs while loop for selecting activity
@@ -17,12 +17,31 @@ class Program
         {
             Console.Clear();
             Console.WriteLine("Menu Options:\n  1. Start breathing activity\n  2. Start reflecting activity\n  3. Start listing activity\n  4. Quit");
-            input = SelectInput("Select a choice from the menu: ");
+            input = SelectInput("Select a choice from the menu: ", 1, 4);
+            if (input == 1)
+            {
+                Breathing tempBreathing = new Breathing();
+                tempBreathing.RunBreathing();
+            }
+            else if (input == 2)
+            {
+                Reflecting tempReflecting = new Reflecting();
+                tempReflecting.RunReflecting();
+            }
+            else if (input == 3)
+            {
+                Console.WriteLine("Listing activity...");
+                Thread.Sleep(5000);
+            }
+            else
+            {
+                Console.WriteLine("\nThank you for using the Mindfulness program! You have a wonderful day!");
+            }
         }
     }
 
     // Prompts user to select integer and displays error if it is not one
-    public static int SelectInput(string prompt)
+    public static int SelectInput(string prompt, int low, int high)
     {
         int input = 0;
         Boolean isValid = false;
@@ -40,7 +59,22 @@ class Program
             else
             {
                 input = int.Parse(inputStr);
-                isValid = true;
+
+                // Detect if integer is within specified range
+                if (input < low)
+                {
+                    Console.WriteLine($"Invalid input! Integer is outside of acceptable range. Cannot be less than {low}.\n");
+                    isValid = false;
+                }
+                else if (input > high)
+                {
+                    Console.WriteLine($"Invalid input! Integer is outside of acceptable range. Cannot be greater than {high}.\n");
+                    isValid = false;
+                }
+                else
+                {
+                    isValid = true;
+                }
             }
         }
         
