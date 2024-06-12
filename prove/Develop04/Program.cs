@@ -12,11 +12,11 @@ class Program
     public static void MenuLoop()
     {
         int input = 0;
-        while (input != 4)
+        while (input != 5)
         {
             Console.Clear();
-            Console.WriteLine("Menu Options:\n  1. Start breathing activity\n  2. Start reflecting activity\n  3. Start listing activity\n  4. Quit");
-            input = SelectInput("Select a choice from the menu: ", 1, 4);
+            Console.WriteLine("Menu Options:\n  1. Start breathing activity\n  2. Start reflecting activity\n  3. Start listing activity\n  4. Start stretching activity\n  5. Quit");
+            input = SelectInput("Select a choice from the menu: ", 1, 5);
             if (input == 1)
             {
                 Breathing tempBreathing = new Breathing();
@@ -31,6 +31,11 @@ class Program
             {
                 Listing tempListing = new Listing();
                 tempListing.RunListing();
+            }
+            else if (input == 4)
+            {
+                Stretching tempStretching = new Stretching();
+                tempStretching.RunStretching();
             }
             else
             {
