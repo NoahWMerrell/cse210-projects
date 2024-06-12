@@ -5,7 +5,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Animation(5);
         MenuLoop();
     }
 
