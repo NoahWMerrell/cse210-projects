@@ -128,8 +128,7 @@ class Program
         }
         else
         {
-            Console.WriteLine("Checklist goals don't exist yet!");
-            tempGoal = new Simple();
+            tempGoal = new Checklist();
         }
         return tempGoal.CreateGoal();
     }
