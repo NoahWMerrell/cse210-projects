@@ -1,10 +1,12 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks.Dataflow;
 
 class Program
 {
     static void Main(string[] args)
     {
+        Console.Clear();
         MenuLoop();
     }
 
@@ -12,39 +14,32 @@ class Program
     public static void MenuLoop()
     {
         List<Goal> tempGoals = new List<Goal>();
+        int points = 0;
         int input = 0;
         while (input != 6)
         {
-            Console.Clear();
+            Console.WriteLine($"\nYou have {points} points.\n");
             Console.WriteLine("Menu Options:\n  1. Create New Goal\n  2. List Goals\n  3. Save Goals\n  4. Load Goals\n  5. Record Event\n  6. Quit");
             input = SelectInput("Select a choice from the menu: ", 1, 6);
             if (input == 1)
             {
-                Simple tempSimple = new Simple();
-                tempSimple = tempSimple.CreateGoal();
-                tempSimple.DisplayGoal();
-                tempGoals.Add(tempSimple);
-                Thread.Sleep(5000);
+                tempGoals.Add(CreateNewGoal());
             }
             else if (input == 2)
             {
-                Console.WriteLine("List Goals");
-                Thread.Sleep(3000);
+                ListGoals(tempGoals);
             }
             else if (input == 3)
             {
                 Console.WriteLine("Save Goals");
-                Thread.Sleep(3000);
             }
             else if (input == 4)
             {
                 Console.WriteLine("Load Goals");
-                Thread.Sleep(3000);
             }
             else if (input == 5)
             {
-                Console.WriteLine("Record Event");
-                Thread.Sleep(3000);
+                points += RecordGoals(tempGoals);
             }
             else
             {
@@ -93,5 +88,49 @@ class Program
         }
         
         return input;
+    }
+
+    // Displays all goals in list
+    public static void ListGoals(List<Goal> goals)
+    {
+        Console.Write("\nThe goals are:");
+        for (int i = 0; i < goals.Count; i++)
+        {
+            Console.Write($"\n{i + 1}. ");
+            goals[i].DisplayGoal();
+        }
+    }
+
+    // Lets you record an event for a goal
+    public static int RecordGoals(List<Goal> goals)
+    {
+        Console.Write("\nThe goals are:");
+        for (int i = 0; i < goals.Count; i++)
+        {
+            Console.Write($"\n{i + 1}. {goals[i].GetTitle()}");
+        }
+        int goalIndex = SelectInput("\nWhich goal did you accomplish? ", 1, goals.Count()) - 1;
+        return goals[goalIndex].RecordEvent();
+    }
+
+    // Lets you create a specific type of goal
+    public static Goal CreateNewGoal()
+    {
+        int input = SelectInput("\nThe type of Goals are:\n1. Simple Goal\n2. Eternal Goal\n3. Checklist Goal\nWhich type of goal would you like to create? ", 1, 3);
+        Goal tempGoal = null;
+        if (input == 1)
+        {
+            tempGoal = new Simple();
+        }
+        else if (input == 2)
+        {
+            tempGoal = new Eternal();
+        }
+        else
+        {
+            Console.WriteLine("Checklist goals don't exist yet!");
+            tempGoal = new Simple();
+        }
+        return tempGoal.CreateGoal();
     }
 }

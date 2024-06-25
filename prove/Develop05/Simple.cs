@@ -23,12 +23,31 @@ public class Simple : Goal
     // Displays the goal
     public override void DisplayGoal()
     {
-        Console.WriteLine($"{_title}\n{_description}\nPoints: {_points}\nComplete: {_complete}");
+        if (_complete == false)
+        {
+            Console.Write("[ ]");
+        }
+        else
+        {
+            Console.Write("[X]");
+        }
+        Console.Write($" {_title} ({_description})");
     }
 
     // Record an event
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
-        Console.WriteLine("Simple Goal Event Recorded");
+        int points = 0;
+        if (_complete == false)
+        {
+            _complete = true;
+            points = _points;
+            Console.WriteLine($"You finished '{_title}' and earned {points} points!");
+        }
+        else
+        {
+            Console.WriteLine($"The goal '{_title}' is already completed!");
+        }
+        return points;
     }
 }

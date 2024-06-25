@@ -17,5 +17,11 @@ public abstract class Goal
     // Abstract methods
     public abstract Goal CreateGoal();
     public abstract void DisplayGoal();
-    public abstract void RecordEvent();
+    public abstract int RecordEvent();
+
+    // Getter for the title
+    public string GetTitle()
+    {
+        return _title;
+    }
 }
