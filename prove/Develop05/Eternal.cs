@@ -22,9 +22,23 @@ public class Eternal : Goal
     }
 
     // Record an event
-    public override int RecordEvent()
+    public override int RecordEvent(List<Goal> goals)
     {
         Console.WriteLine($"You finished '{_title}' and earned {_points} points!");
         return _points;
+    }
+
+    // Writes to the Stream (for saving)
+    public override void WriteStream(StreamWriter writer)
+    {
+        writer.WriteLine($"Eternal,{_title},{_description},{_points}");
+    }
+
+    // Reads the Stream (for loading)
+    public override void ReadStream(string[] attributes)
+    {
+        _title = attributes[1];
+        _description = attributes[2];
+        _points = int.Parse(attributes[3]);
     }
 }

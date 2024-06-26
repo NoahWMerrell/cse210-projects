@@ -41,7 +41,7 @@ public class Checklist : Goal
     }
 
     // Record an event
-    public override int RecordEvent()
+    public override int RecordEvent(List<Goal> goals)
     {
         int points = 0;
         if (_count != _maxCount)
@@ -58,7 +58,34 @@ public class Checklist : Goal
         else
         {
             Console.WriteLine($"The goal '{_title}' is already completed!");
+            int input = Program.SelectInput("\n1. Reset the goal\n2. Delete the goal\n3. Do nothing\nWhat would you like to do? ", 1, 3);
+            if (input == 1)
+            {
+                _count = 0;
+                Console.WriteLine($"'{_title}' has been reset!");
+            }
+            else if (input == 2)
+            {
+                goals.Remove(this);
+            }
         }
         return points;
+    }
+
+    // Writes to the Stream (for saving)
+    public override void WriteStream(StreamWriter writer)
+    {
+        writer.WriteLine($"Checklist,{_title},{_description},{_points},{_count},{_maxCount},{_bonusPoints}");
+    }
+
+    // Reads the Stream (for loading)
+    public override void ReadStream(string[] attributes)
+    {
+        _title = attributes[1];
+        _description = attributes[2];
+        _points = int.Parse(attributes[3]);
+        _count = int.Parse(attributes[4]);
+        _maxCount = int.Parse(attributes[5]);
+        _bonusPoints = int.Parse(attributes[6]);
     }
 }

@@ -1,3 +1,6 @@
+
+using System.Runtime.CompilerServices;
+
 public class Simple : Goal
 {
     private Boolean _complete;
@@ -35,7 +38,7 @@ public class Simple : Goal
     }
 
     // Record an event
-    public override int RecordEvent()
+    public override int RecordEvent(List<Goal> goals)
     {
         int points = 0;
         if (_complete == false)
@@ -46,8 +49,33 @@ public class Simple : Goal
         }
         else
         {
-            Console.WriteLine($"The goal '{_title}' is already completed!");
+            Console.Write($"\nThe goal '{_title}' is already completed!");
+            int input = Program.SelectInput("\n1. Reset the goal\n2. Delete the goal\n3. Do nothing\nWhat would you like to do? ", 1, 3);
+            if (input == 1)
+            {
+                _complete = false;
+                Console.WriteLine($"'{_title}' has been reset!");
+            }
+            else if (input == 2)
+            {
+                goals.Remove(this);
+            }
         }
         return points;
+    }
+
+    // Writes to the Stream (for saving)
+    public override void WriteStream(StreamWriter writer)
+    {
+        writer.WriteLine($"Simple,{_title},{_description},{_points},{_complete}");
+    }
+
+    // Reads the Stream (for loading)
+    public override void ReadStream(string[] attributes)
+    {
+        _title = attributes[1];
+        _description = attributes[2];
+        _points = int.Parse(attributes[3]);
+        _complete = Boolean.Parse(attributes[4]);
     }
 }
