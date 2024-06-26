@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 
 public class Simple : Goal
 {
+    // Attributes
     private Boolean _complete;
     
     // Constructors

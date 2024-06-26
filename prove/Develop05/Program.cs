@@ -8,8 +8,8 @@ For the creative portion I did a few things. First ensured the program would avo
 that verifies if the input is an integer and within a specified range. Additionally, I added a feature that when you attempt to
 record an event for a Simple or Checklist goal that has already been completed you are given the option to reset it, delete it,
 or do nothing. Finally, the user has the option to delete a goal which is needed for deleting eternal goals or if they want to
-delete a goal in progress (Note: This won't affect your current point total). For grading purposes, you can load 'test.txt' or
-create your own goals to save and load.
+delete a goal in progress (Note: This won't affect your current point total). For grading purposes, you can load 'goals.txt' or
+create your own file to save and load.
 */
 class Program
 {
@@ -28,41 +28,47 @@ class Program
         while (input != 7)
         {
             Console.WriteLine($"\nYou have {points} points.\n");
-            Console.WriteLine("Menu Options:\n  1. Create New Goal\n  2. List Goals\n  3. Save Goals\n  4. Load Goals\n  5. Record Event\n  6. Delete Goals\n  7. Quit");
+            Console.WriteLine("Menu Options:\n  1. Create New Goal\n  2. List Goals\n  3. Save Goals\n  4. Load Goals\n  5. Record Event\n  6. Delete Goal\n  7. Quit");
             input = SelectInput("Select a choice from the menu: ", 1, 7);
             if (input == 1)
             {
+                // When you select Create New Goal
                 tempGoals.Add(CreateNewGoal());
             }
             else if (input == 2)
             {
+                // When you select List Goals
                 ListGoals(tempGoals);
             }
             else if (input == 3)
             {
+                // When you select Save Goals
                 Save(tempGoals, points);
             }
             else if (input == 4)
             {
+                // When you select Load Goals
                 points = Load(tempGoals, points);
             }
             else if (input == 5)
             {
+                // When you select Record Event
                 points += RecordGoals(tempGoals);
             }
             else if (input == 6)
             {
+                // When you select Delete Goal
                 DeleteGoals(tempGoals);
             }
             else
             {
-                // When you select quit
+                // When you select Quit
                 Console.WriteLine("\nThank you for using the Eternal Quest program! You have a wonderful day!");
             }
         }
     }
 
-    // Prompts user to select integer and displays error if it is not one
+    // Prompts user to select integer and displays error if it is not one or within the specified range
     public static int SelectInput(string prompt, int low, int high)
     {
         int input = 0;

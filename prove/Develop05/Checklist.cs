@@ -1,5 +1,6 @@
 public class Checklist : Goal
 {
+    // Attributes
     private int _count;
     private int _maxCount;
     private int _bonusPoints;
