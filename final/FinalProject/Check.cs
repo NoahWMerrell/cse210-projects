@@ -1,8 +1,24 @@
 public class Check
 {
-    private int _bonus;
-    private int _advantage;
-    private int _disadvantage;
+    // Attributes
+    protected int _bonus;
+    protected int _advantage;
+    protected int _disadvantage;
+
+    // Constructors
+    public Check()
+    {
+        _bonus = Program.SelectInput("What is the bonus to the check? ", -30, 30);
+        _advantage = Program.SelectInput("What is the advantage value for the check? ", -30, 30);
+        _disadvantage = Program.SelectInput("What is the disadvantage value for the check? ", -30, 30);
+    }
+
+    public Check(int bonus)
+    {
+        _bonus = bonus;
+        _advantage = 0;
+        _disadvantage = 0;
+    }
 
     public Check(int bonus, int advantage, int disadvantage)
     {
@@ -11,6 +27,7 @@ public class Check
         _disadvantage = disadvantage;
     }
 
+    // Rolls the Check and determines the result
     public int Roll()
     {
         Random random = new Random();
@@ -32,7 +49,12 @@ public class Check
             // Lowest three (or first three)
             sum = dice.Take(3).Sum();
         }
-        // dice.ForEach(Console.WriteLine);
+        // dice.ForEach(Console.WriteLine); // For testing
         return sum + _bonus;
+    }
+
+    public void Select()
+    {
+        Program.SelectInput("", 1, 20);
     }
 }
