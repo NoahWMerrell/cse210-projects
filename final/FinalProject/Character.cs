@@ -9,6 +9,7 @@ public class Character
     private int _level;
     private int _proficiency;
     private int _hitPoints;
+    private int _currentHitPoints;
     private int _physicalDefense;
     private int _mentalDefense;
     private Attack _attack;
@@ -28,40 +29,8 @@ public class Character
         _level = Program.SelectInput($"What level is {_name}? ", 1, 20);
         _proficiency = 1 + (int)Math.Ceiling((double)_level / 4); 
         _hitPoints = 3 + _proficiency + attributes[0].GetModifier();
-        int input = Program.SelectInput($"1.  None\n2.  Light (Common)\n3.  Heavy (Common)\n4.  Light (Rare)\n5.  Heavy (Rare)\n6.  Light (Exotic)\n7.  Heavy (Exotic)\nWhat type of armor is {_name} wearing? ", 1, 7);
-        if (input == 1)
-        {
-            _physicalDefense = 8 + _proficiency + attributes[1].GetModifier();
-        }
-        else if (input == 2)
-        {
-            _physicalDefense = 9 + _proficiency + attributes[1].GetModifier();
-        }
-        else if (input == 3)
-        {
-            _physicalDefense = 14 + _proficiency;
-        }
-        else if (input == 4)
-        {
-            _physicalDefense = 10 + _proficiency + attributes[1].GetModifier();
-        }
-        else if (input == 5)
-        {
-            _physicalDefense = 15 + _proficiency;
-        }
-        else if (input == 6)
-        {
-            _physicalDefense = 11 + _proficiency + attributes[1].GetModifier();
-        }
-        else
-        {
-            _physicalDefense = 16 + _proficiency;
-        }
-        int shieldInput = Program.SelectInput($"1.  Yes\n2.  No\nDoes {_name} have a shield equipped? ", 1, 2);
-        if (shieldInput == 1)
-        {
-            _physicalDefense += 2;
-        }
+        _currentHitPoints = _hitPoints;
+        SetPD();
         _mentalDefense = 8 + _proficiency + attributes[2].GetModifier() + attributes[3].GetModifier();
         Attack attack = new Attack();
         attack.CharacterSet();
@@ -89,6 +58,7 @@ public class Character
         _level = level;
         _proficiency = 1 + (int)Math.Ceiling((double)level / 4); 
         _hitPoints = 3 + _proficiency + attributes[0].GetModifier();
+        _currentHitPoints = _hitPoints;
         _physicalDefense = physicalDefense;
         _mentalDefense = 8 + _proficiency + attributes[2].GetModifier() + attributes[3].GetModifier();
         _attack = attack;
@@ -108,5 +78,82 @@ public class Character
         Console.WriteLine($"Hit Points: {_hitPoints}");
         Console.WriteLine($"PD: {_physicalDefense}");
         Console.WriteLine($"MD: {_mentalDefense}");
+    }
+
+    public void SetPD()
+    {
+        int input = Program.SelectInput($"1.  None\n2.  Light (Common)\n3.  Heavy (Common)\n4.  Light (Rare)\n5.  Heavy (Rare)\n6.  Light (Exotic)\n7.  Heavy (Exotic)\n8.  Unarmored Defense\nWhat type of armor is {_name} wearing? ", 1, 8);
+        if (input == 1)
+        {
+            _physicalDefense = 8 + _proficiency + attributes[1].GetModifier();
+        }
+        else if (input == 2)
+        {
+            _physicalDefense = 9 + _proficiency + attributes[1].GetModifier();
+        }
+        else if (input == 3)
+        {
+            _physicalDefense = 14 + _proficiency;
+        }
+        else if (input == 4)
+        {
+            _physicalDefense = 10 + _proficiency + attributes[1].GetModifier();
+        }
+        else if (input == 5)
+        {
+            _physicalDefense = 15 + _proficiency;
+        }
+        else if (input == 6)
+        {
+            _physicalDefense = 11 + _proficiency + attributes[1].GetModifier();
+        }
+        else if (input == 7)
+        {
+            _physicalDefense = 16 + _proficiency;
+        }
+        else
+        {
+            int unarmoredInput = Program.SelectInput($"1.  Might\n2.  Cunning\n3.  Influence\nWhich attribute does {_name} use for Unarmored Defense? ", 1, 3);
+            if (unarmoredInput == 1)
+            {
+                _physicalDefense = 8 + _proficiency + attributes[1].GetModifier() + attributes[0].GetModifier();
+            }
+            else if (unarmoredInput == 2)
+            {
+                _physicalDefense = 8 + _proficiency + attributes[1].GetModifier() + attributes[2].GetModifier();
+            }
+            else
+            {
+                _physicalDefense = 8 + _proficiency + attributes[1].GetModifier() + attributes[3].GetModifier();
+            }
+        }
+        int shieldInput = Program.SelectInput($"1.  Yes\n2.  No\nDoes {_name} have a shield equipped? ", 1, 2);
+        if (shieldInput == 1)
+        {
+            _physicalDefense += 2;
+        }
+    }
+
+    public void Attack(Character target, Boolean mental)
+    {
+        if (mental == false)
+        {
+            _attack.SetDefense(target.GetPD());
+        }
+        else
+        {
+            _attack.SetDefense(target.GetMD());
+        }
+        _attack.Damage();
+    }
+
+    // Getters
+    public int GetPD()
+    {
+        return _physicalDefense;
+    }
+    public int GetMD()
+    {
+        return _mentalDefense;
     }
 }

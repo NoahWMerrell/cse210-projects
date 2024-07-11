@@ -1,6 +1,6 @@
 public class CheckSimulation : Simulation
 {
-    // Atribute
+    // Attributes
     private Check _check;
     private Dictionary<int, int> _results;
     

@@ -5,8 +5,6 @@ class Program
     static void Main(string[] args)
     {
         MenuLoop();
-        Character temp = new Character();
-        temp.Display();
     }
 
     // Runs while loop for selecting activity
@@ -16,8 +14,8 @@ class Program
         while (input != 3)
         {
             Console.Clear();
-            Console.WriteLine("Menu Options:\n  1. Check Simulation\n  2. Attack Simulation\n  3. Quit");
-            input = SelectInput("Select a choice from the menu: ", 1, 3);
+            Console.WriteLine("Menu Options:\n  1. Check Simulation\n  2. Attack Simulation\n  3. Combat Simulation\n  4. Quit");
+            input = SelectInput("Select a choice from the menu: ", 1, 4);
             if (input == 1)
             {
                 // Check Simulation
@@ -33,6 +31,11 @@ class Program
                 tempAttack.Set();
                 AttackSimulation tempSim = new AttackSimulation(SelectInput("How many millions of iterations would you like to run the simulation (input will be multiplied by 1,000,000)? ", 1, 100)*1000000, tempAttack);
                 tempSim.Run();
+            }
+            else if (input == 3)
+            {
+                // Combat Simulation
+                CombatSimulation tempSim = new CombatSimulation(SelectInput("How many millions of iterations would you like to run the simulation (input will be multiplied by 1,000,000)? ", 1, 100)*1000000);
             }
             else
             {
