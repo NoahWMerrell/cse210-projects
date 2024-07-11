@@ -36,6 +36,7 @@ class Program
             {
                 // Combat Simulation
                 CombatSimulation tempSim = new CombatSimulation(SelectInput("How many millions of iterations would you like to run the simulation (input will be multiplied by 1,000,000)? ", 1, 100)*1000000);
+                tempSim.Run();
             }
             else
             {

@@ -40,9 +40,9 @@ public class Attack : Check
     }
 
     // Calculates the damage of the attack
-    public int Damage()
+    public int Damage(int disadvantage)
     {
-        int hit = Roll() - _defense;
+        int hit = RollD(disadvantage) - _defense;
         if (hit >= 0)
         {
             return _baseDamage + (int)Math.Floor((double)hit / 5);

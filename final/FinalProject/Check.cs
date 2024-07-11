@@ -54,4 +54,29 @@ public class Check
         }
         return sum + _bonus;
     }
+
+    // Identical to Roll except can include temporary disadvantage values
+    public int RollD(int tempDisadvantage)
+    {
+        Random random = new Random();
+        List<int> dice = new List<int>();
+        int advDis = _advantage - (_disadvantage + tempDisadvantage);
+        for (int i = 0; i < (3 + Math.Abs(advDis)); i++)
+        {
+            dice.Add(random.Next(1, 7));
+        }
+        dice.Sort();
+        int sum = 0;
+        if (advDis > 0)
+        {
+            // Highest three
+            sum = dice.Skip(dice.Count - 3).Sum();
+        }
+        else
+        {
+            // Lowest three (or first three)
+            sum = dice.Take(3).Sum();
+        }
+        return sum + _bonus;
+    }
 }

@@ -5,7 +5,7 @@ public class Character
 {
     // Attributes
     private string _name;
-    private List<Attribute> attributes;
+    private List<Attribute> _attributes;
     private int _level;
     private int _proficiency;
     private int _hitPoints;
@@ -14,12 +14,13 @@ public class Character
     private int _mentalDefense;
     private Attack _attack;
     private Boolean _hostile;
+    private int _initiative;
 
     // Constructor
     public Character()
     {
         _name = Program.EnterString("What is this character's name? ");
-        attributes = new List<Attribute>
+        _attributes = new List<Attribute>
         {
             new Attribute("Might", Program.SelectInput($"What is {_name}'s might? ", -5, 10)),
             new Attribute("Agility", Program.SelectInput($"What is {_name}'s agility? ", -5, 10)),
@@ -28,12 +29,12 @@ public class Character
         };
         _level = Program.SelectInput($"What level is {_name}? ", 1, 20);
         _proficiency = 1 + (int)Math.Ceiling((double)_level / 4); 
-        _hitPoints = 3 + _proficiency + attributes[0].GetModifier();
+        _hitPoints = 3 + _proficiency + _attributes[0].GetModifier();
         _currentHitPoints = _hitPoints;
         SetPD();
-        _mentalDefense = 10 + _proficiency + attributes[2].GetModifier() + attributes[3].GetModifier();
-        Attack attack = new Attack();
-        attack.CharacterSet();
+        _mentalDefense = 10 + _proficiency + _attributes[2].GetModifier() + _attributes[3].GetModifier();
+        _attack = new Attack();
+        _attack.CharacterSet();
         int hostileInput = Program.SelectInput($"1.  Yes\n2.  No\nIs {_name} a hostile creature? ", 1, 2);
         if (hostileInput == 1)
         {
@@ -48,7 +49,7 @@ public class Character
     public Character(string name, int level, int might, int agility, int cunning, int influence, int physicalDefense, Attack attack, Boolean hostile)
     {
         _name = name;
-        attributes = new List<Attribute>
+        _attributes = new List<Attribute>
         {
             new Attribute("Might", might),
             new Attribute("Agility", agility),
@@ -57,10 +58,10 @@ public class Character
         };
         _level = level;
         _proficiency = 1 + (int)Math.Ceiling((double)level / 4); 
-        _hitPoints = 3 + _proficiency + attributes[0].GetModifier();
+        _hitPoints = 3 + _proficiency + _attributes[0].GetModifier();
         _currentHitPoints = _hitPoints;
         _physicalDefense = physicalDefense;
-        _mentalDefense = 10 + _proficiency + attributes[2].GetModifier() + attributes[3].GetModifier();
+        _mentalDefense = 10 + _proficiency + _attributes[2].GetModifier() + _attributes[3].GetModifier();
         _attack = attack;
         _hostile = hostile;
     }
@@ -69,7 +70,7 @@ public class Character
     public void Display()
     {
         Console.WriteLine($"----------------------------------\n{_name}\n----------------------------------");
-        foreach (Attribute a in attributes)
+        foreach (Attribute a in _attributes)
         {
             Console.WriteLine($"{a.GetName()}: {a.GetModifier()}");
         }
@@ -80,17 +81,31 @@ public class Character
         Console.WriteLine($"MD: {_mentalDefense}");
     }
 
+    public void Status()
+    {
+        string dying = "";
+        if (_currentHitPoints <= 0)
+        {
+            dying = " (Dying)";
+        }
+        if (_currentHitPoints < -_proficiency)
+        {
+            dying = " (Dead)";
+        }
+        Console.WriteLine($"{_name}: {_currentHitPoints}/{_hitPoints}{dying}");
+    }
+
     // Sets the Physical Defense based off of the armor the user selects
     public void SetPD()
     {
         int input = Program.SelectInput($"1.  None\n2.  Light (Common)\n3.  Heavy (Common)\n4.  Light (Rare)\n5.  Heavy (Rare)\n6.  Light (Exotic)\n7.  Heavy (Exotic)\n8.  Unarmored Defense\nWhat type of armor is {_name} wearing? ", 1, 8);
         if (input == 1)
         {
-            _physicalDefense = 10 + _proficiency + attributes[1].GetModifier();
+            _physicalDefense = 10 + _proficiency + _attributes[1].GetModifier();
         }
         else if (input == 2)
         {
-            _physicalDefense = 11 + _proficiency + attributes[1].GetModifier();
+            _physicalDefense = 11 + _proficiency + _attributes[1].GetModifier();
         }
         else if (input == 3)
         {
@@ -98,7 +113,7 @@ public class Character
         }
         else if (input == 4)
         {
-            _physicalDefense = 12 + _proficiency + attributes[1].GetModifier();
+            _physicalDefense = 12 + _proficiency + _attributes[1].GetModifier();
         }
         else if (input == 5)
         {
@@ -106,7 +121,7 @@ public class Character
         }
         else if (input == 6)
         {
-            _physicalDefense = 13 + _proficiency + attributes[1].GetModifier();
+            _physicalDefense = 13 + _proficiency + _attributes[1].GetModifier();
         }
         else if (input == 7)
         {
@@ -117,15 +132,15 @@ public class Character
             int unarmoredInput = Program.SelectInput($"1.  Might\n2.  Cunning\n3.  Influence\nWhich attribute does {_name} use for Unarmored Defense? ", 1, 3);
             if (unarmoredInput == 1)
             {
-                _physicalDefense = 10 + _proficiency + attributes[1].GetModifier() + attributes[0].GetModifier();
+                _physicalDefense = 10 + _proficiency + _attributes[1].GetModifier() + _attributes[0].GetModifier();
             }
             else if (unarmoredInput == 2)
             {
-                _physicalDefense = 10 + _proficiency + attributes[1].GetModifier() + attributes[2].GetModifier();
+                _physicalDefense = 10 + _proficiency + _attributes[1].GetModifier() + _attributes[2].GetModifier();
             }
             else
             {
-                _physicalDefense = 10 + _proficiency + attributes[1].GetModifier() + attributes[3].GetModifier();
+                _physicalDefense = 10 + _proficiency + _attributes[1].GetModifier() + _attributes[3].GetModifier();
             }
         }
         int shieldInput = Program.SelectInput($"1.  Yes\n2.  No\nDoes {_name} have a shield equipped? ", 1, 2);
@@ -136,7 +151,7 @@ public class Character
     }
 
     // Makes an attack against a target.
-    public void Attack(Character target, Boolean mental)
+    public void Attack(Character target, int disadvantage, Boolean mental)
     {
         if (mental == false)
         {
@@ -146,10 +161,58 @@ public class Character
         {
             _attack.SetDefense(target.GetMD());
         }
-        _attack.Damage();
+        int damage = _attack.Damage(disadvantage);
+        target._currentHitPoints -= damage;
+        if (damage > 0)
+        {
+            Console.WriteLine($"{_name} attacks {target._name} dealing {damage} damage!");
+        }
+        else
+        {
+            Console.WriteLine($"{_name} attacks {target._name} and missed!");
+        }
+    }
+
+    // Rolls initiative for character
+    public void RollInitiative()
+    {
+        Random random = new Random();
+        _initiative = random.Next(1, 7) + _attributes[1].GetModifier();
     }
 
     // Getters
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public int GetMod(string attribute)
+    {
+        foreach (Attribute a in _attributes)
+        {
+            if (a.GetName() == attribute)
+            {
+                return a.GetModifier();
+            }
+        }
+        return 0;
+    }
+
+    public int GetProficiency()
+    {
+        return _proficiency;
+    }
+
+    public int GetHP()
+    {
+        return _currentHitPoints;
+    }
+
+    public Boolean GetHostile()
+    {
+        return _hostile;
+    }
+    
     public int GetPD()
     {
         return _physicalDefense;
@@ -157,5 +220,10 @@ public class Character
     public int GetMD()
     {
         return _mentalDefense;
+    }
+
+    public int GetInitiative()
+    {
+        return _initiative;
     }
 }

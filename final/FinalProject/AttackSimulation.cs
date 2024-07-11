@@ -17,7 +17,7 @@ public class AttackSimulation : Simulation
         Console.WriteLine("Running simulation...");
         for (int i = 0; i < _iterations; i++)
         {
-            int result = _attack.Damage();
+            int result = _attack.Damage(0);
             if (_results.ContainsKey(result))
             {
                 _results[result]++;
