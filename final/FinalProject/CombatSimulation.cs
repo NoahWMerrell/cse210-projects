@@ -1,7 +1,9 @@
 public class CombatSimulation : Simulation
 {
-    // Attribute
+    // Attributes
     private List<Character> _combatants = new List<Character>();
+    private int _friendlyWins = 0;
+    private int _hostileWins = 0;
 
     // Constructor
     public CombatSimulation(int iterations): base(iterations)
@@ -24,79 +26,92 @@ public class CombatSimulation : Simulation
     public override void Run()
     {
         Console.Clear();
-        // Roll initiative for each character and sort by highest Initiative >>> Agility >>> Cunning >>> Influence >>> Might >>> Level
-        foreach (Character character in _combatants)
+        Console.WriteLine("Running simulation...");
+        for (int iter = 0; iter < _iterations; iter++)
         {
-            character.RollInitiative();
-        }
-        _combatants = _combatants.OrderByDescending(p => p.GetInitiative()).ThenByDescending(p => p.GetMod("Agility")).ThenByDescending(p => p.GetMod("Cunning")).ThenByDescending(p => p.GetMod("Influence")).ThenByDescending(p => p.GetMod("Might")).ThenByDescending(p => p.GetMod("Level")).ToList();
-
-        Boolean hostilesDefeated = false;
-        Boolean nonHostilesDefeated = false;
-        int round = 1;
-        while (!hostilesDefeated && !nonHostilesDefeated)
-        {
-            hostilesDefeated = true;
-            nonHostilesDefeated = true;
-            Console.Clear();
-            Console.WriteLine($"----------------------------------\nRound #{round}\n----------------------------------");
-
-            // Run each round of combat
+            // Roll initiative for each character and sort by highest Initiative >>> Agility >>> Cunning >>> Influence >>> Might >>> Level
             foreach (Character character in _combatants)
             {
-                if (character.GetHP() >= -character.GetProficiency())
+                character.ResetHP();
+                character.RollInitiative();
+            }
+            _combatants = _combatants.OrderByDescending(p => p.GetInitiative()).ThenByDescending(p => p.GetMod("Agility")).ThenByDescending(p => p.GetMod("Cunning")).ThenByDescending(p => p.GetMod("Influence")).ThenByDescending(p => p.GetMod("Might")).ThenByDescending(p => p.GetMod("Level")).ToList();
+
+            Boolean hostilesDefeated = false;
+            Boolean nonHostilesDefeated = false;
+            int round = 1;
+            while (!hostilesDefeated && !nonHostilesDefeated)
+            {
+                hostilesDefeated = true;
+                nonHostilesDefeated = true;
+                // Console.Clear();
+                // Console.WriteLine($"----------------------------------\nRound #{round}\n----------------------------------");
+
+                // Run each round of combat
+                foreach (Character character in _combatants)
                 {
-                    int actions = 0;
-                    if (character.GetHP() > 0)
+                    if (character.GetHP() >= -character.GetProficiency())
                     {
-                        actions = 4;
-                    }
-                    else
-                    {
-                        actions = 1;
-                    }
-                    for (int i = 0; i < actions; i++)
-                    {
-                        int targetIndex = FindTarget(character);
-                        if (targetIndex != -1)
+                        int actions = 0;
+                        if (character.GetHP() > 0)
                         {
-                            character.Attack(_combatants[targetIndex], i * 2, false);
-                        }
-                        if (character.GetHostile())
-                        {
-                            hostilesDefeated = false;
+                            actions = 4;
                         }
                         else
                         {
-                            nonHostilesDefeated = false;
+                            actions = 1;
+                        }
+                        for (int i = 0; i < actions; i++)
+                        {
+                            int targetIndex = FindTarget(character);
+                            if (targetIndex != -1)
+                            {
+                                character.Attack(_combatants[targetIndex], i * 2, false);
+                            }
+                            if (character.GetHostile())
+                            {
+                                hostilesDefeated = false;
+                            }
+                            else
+                            {
+                                nonHostilesDefeated = false;
+                            }
                         }
                     }
                 }
+                // foreach (Character character in _combatants)
+                // {
+                //     character.Status();
+                // }
+                // Console.Write("Press enter to continue: ");
+                // Console.ReadLine();
+                round++;
             }
-            foreach (Character character in _combatants)
+            if (hostilesDefeated)
             {
-                character.Status();
+                // Console.WriteLine("Friendlies win!");
+                _friendlyWins++;
+
+                
             }
-            Console.Write("Press enter to continue: ");
-            Console.ReadLine();
+            else
+            {
+                // Console.WriteLine("Hostiles win!");
+                _hostileWins++;
+            }
         }
-        if (hostilesDefeated)
-        {
-            Console.WriteLine("Friendlies win!");
-        }
-        else
-        {
-            Console.WriteLine("Hostiles win!");
-        }
-        round++;
-        Console.Write("Press enter to continue: ");
-        Console.ReadLine();
+        DisplayResults();
     }
 
     // Displays the results of the simulation
     public override void DisplayResults()
     {
-        // DisplayResults
+        Console.WriteLine("Simulation results:");
+        double friendlyPercentage = ((double)_friendlyWins / (double)_iterations) * 100;
+        double hostilePercentage = ((double)_hostileWins / (double)_iterations) * 100;
+        Console.WriteLine($"Friendlies won {friendlyPercentage:F2}% of the time with hostiles winning {hostilePercentage:F2}% of the time.");
+        Console.Write("Press enter to continue: ");
+        Console.ReadLine();
     }
 
     // Determines and returns targetIndex to attack

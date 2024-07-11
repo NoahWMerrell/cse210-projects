@@ -35,7 +35,7 @@ class Program
             else if (input == 3)
             {
                 // Combat Simulation
-                CombatSimulation tempSim = new CombatSimulation(SelectInput("How many millions of iterations would you like to run the simulation (input will be multiplied by 1,000,000)? ", 1, 100)*1000000);
+                CombatSimulation tempSim = new CombatSimulation(SelectInput("How many thousands of iterations would you like to run the simulation (input will be multiplied by 1,000)? ", 1, 100)*1000);
                 tempSim.Run();
             }
             else

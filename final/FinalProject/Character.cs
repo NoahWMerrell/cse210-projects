@@ -163,14 +163,14 @@ public class Character
         }
         int damage = _attack.Damage(disadvantage);
         target._currentHitPoints -= damage;
-        if (damage > 0)
-        {
-            Console.WriteLine($"{_name} attacks {target._name} dealing {damage} damage!");
-        }
-        else
-        {
-            Console.WriteLine($"{_name} attacks {target._name} and missed!");
-        }
+        // if (damage > 0)
+        // {
+        //     Console.WriteLine($"{_name} attacks {target._name} dealing {damage} damage!");
+        // }
+        // else
+        // {
+        //     Console.WriteLine($"{_name} attacks {target._name} and missed!");
+        // }
     }
 
     // Rolls initiative for character
@@ -178,6 +178,12 @@ public class Character
     {
         Random random = new Random();
         _initiative = random.Next(1, 7) + _attributes[1].GetModifier();
+    }
+
+    // Resets the character's hit points to their max
+    public void ResetHP()
+    {
+        _currentHitPoints = _hitPoints;
     }
 
     // Getters
