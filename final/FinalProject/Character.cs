@@ -31,7 +31,7 @@ public class Character
         _hitPoints = 3 + _proficiency + attributes[0].GetModifier();
         _currentHitPoints = _hitPoints;
         SetPD();
-        _mentalDefense = 8 + _proficiency + attributes[2].GetModifier() + attributes[3].GetModifier();
+        _mentalDefense = 10 + _proficiency + attributes[2].GetModifier() + attributes[3].GetModifier();
         Attack attack = new Attack();
         attack.CharacterSet();
         int hostileInput = Program.SelectInput($"1.  Yes\n2.  No\nIs {_name} a hostile creature? ", 1, 2);
@@ -60,7 +60,7 @@ public class Character
         _hitPoints = 3 + _proficiency + attributes[0].GetModifier();
         _currentHitPoints = _hitPoints;
         _physicalDefense = physicalDefense;
-        _mentalDefense = 8 + _proficiency + attributes[2].GetModifier() + attributes[3].GetModifier();
+        _mentalDefense = 10 + _proficiency + attributes[2].GetModifier() + attributes[3].GetModifier();
         _attack = attack;
         _hostile = hostile;
     }
@@ -86,46 +86,46 @@ public class Character
         int input = Program.SelectInput($"1.  None\n2.  Light (Common)\n3.  Heavy (Common)\n4.  Light (Rare)\n5.  Heavy (Rare)\n6.  Light (Exotic)\n7.  Heavy (Exotic)\n8.  Unarmored Defense\nWhat type of armor is {_name} wearing? ", 1, 8);
         if (input == 1)
         {
-            _physicalDefense = 8 + _proficiency + attributes[1].GetModifier();
+            _physicalDefense = 10 + _proficiency + attributes[1].GetModifier();
         }
         else if (input == 2)
         {
-            _physicalDefense = 9 + _proficiency + attributes[1].GetModifier();
+            _physicalDefense = 11 + _proficiency + attributes[1].GetModifier();
         }
         else if (input == 3)
         {
-            _physicalDefense = 14 + _proficiency;
+            _physicalDefense = 16 + _proficiency;
         }
         else if (input == 4)
         {
-            _physicalDefense = 10 + _proficiency + attributes[1].GetModifier();
+            _physicalDefense = 12 + _proficiency + attributes[1].GetModifier();
         }
         else if (input == 5)
         {
-            _physicalDefense = 15 + _proficiency;
+            _physicalDefense = 17 + _proficiency;
         }
         else if (input == 6)
         {
-            _physicalDefense = 11 + _proficiency + attributes[1].GetModifier();
+            _physicalDefense = 13 + _proficiency + attributes[1].GetModifier();
         }
         else if (input == 7)
         {
-            _physicalDefense = 16 + _proficiency;
+            _physicalDefense = 18 + _proficiency;
         }
         else
         {
             int unarmoredInput = Program.SelectInput($"1.  Might\n2.  Cunning\n3.  Influence\nWhich attribute does {_name} use for Unarmored Defense? ", 1, 3);
             if (unarmoredInput == 1)
             {
-                _physicalDefense = 8 + _proficiency + attributes[1].GetModifier() + attributes[0].GetModifier();
+                _physicalDefense = 10 + _proficiency + attributes[1].GetModifier() + attributes[0].GetModifier();
             }
             else if (unarmoredInput == 2)
             {
-                _physicalDefense = 8 + _proficiency + attributes[1].GetModifier() + attributes[2].GetModifier();
+                _physicalDefense = 10 + _proficiency + attributes[1].GetModifier() + attributes[2].GetModifier();
             }
             else
             {
-                _physicalDefense = 8 + _proficiency + attributes[1].GetModifier() + attributes[3].GetModifier();
+                _physicalDefense = 10 + _proficiency + attributes[1].GetModifier() + attributes[3].GetModifier();
             }
         }
         int shieldInput = Program.SelectInput($"1.  Yes\n2.  No\nDoes {_name} have a shield equipped? ", 1, 2);
