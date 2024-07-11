@@ -4,11 +4,7 @@ public class Attack : Check
     private int _defense;
 
     // Constructors
-    public Attack(): base()
-    {
-        _baseDamage = Program.SelectInput("What is the base damage of the attack? ", 0, 10);
-        _defense = Program.SelectInput("What is the defense for the target? ", 0, 40);
-    }
+    public Attack(): base() {}
 
     public Attack(int bonus, int baseDamage, int defense): base(bonus)
     {
@@ -22,6 +18,25 @@ public class Attack : Check
     {
         _baseDamage = baseDamage;
         _defense = defense;
+    }
+
+    // Allows user to enter values for Attack
+    public override void Set()
+    {
+        _bonus = Program.SelectInput("What is the bonus to hit for the attack? ", -30, 30);
+        _advantage = Program.SelectInput("What is the advantage value of the attack? ", -30, 30);
+        _disadvantage = Program.SelectInput("What is the disadvantage value of the attack? ", -30, 30);
+        _baseDamage = Program.SelectInput("What is the base damage of the attack? ", 0, 10);
+        _defense = Program.SelectInput("What is the defense for the target? ", 0, 40);
+    }
+
+    // Allows user to enter values for a Character's Attack
+    public void CharacterSet()
+    {
+        _bonus = Program.SelectInput("What is the bonus to hit for their attack? ", -30, 30);
+        _advantage = Program.SelectInput("What is the default advantage value of their attack? ", -30, 30);
+        _disadvantage = Program.SelectInput("What is the default disadvantage value of their attack? ", -30, 30);
+        _baseDamage = Program.SelectInput("What is the base damage of their attack? ", 0, 10);
     }
 
     // Calculates the damage of the attack

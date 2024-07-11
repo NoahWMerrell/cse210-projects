@@ -5,6 +5,8 @@ class Program
     static void Main(string[] args)
     {
         MenuLoop();
+        Character temp = new Character();
+        temp.Display();
     }
 
     // Runs while loop for selecting activity
@@ -20,18 +22,17 @@ class Program
             {
                 // Check Simulation
                 Check tempCheck = new Check();
+                tempCheck.Set();
                 CheckSimulation tempSim = new CheckSimulation(SelectInput("How many millions of iterations would you like to run the simulation (input will be multiplied by 1,000,000)? ", 1, 100)*1000000, tempCheck);
                 tempSim.Run();
-                Console.Write("Press enter to continue: ");
-                Console.ReadLine();
             }
             else if (input == 2)
             {
                 // Attack Simulation
                 Attack tempAttack = new Attack();
-                Console.WriteLine($"Damage: {tempAttack.Damage()}");
-                Console.Write("Press enter to continue: ");
-                Console.ReadLine();
+                tempAttack.Set();
+                AttackSimulation tempSim = new AttackSimulation(SelectInput("How many millions of iterations would you like to run the simulation (input will be multiplied by 1,000,000)? ", 1, 100)*1000000, tempAttack);
+                tempSim.Run();
             }
             else
             {
@@ -54,7 +55,7 @@ class Program
             // Detect if it isn't an integer and will display error
             if (!int.TryParse(inputStr, out input))
             {
-                Console.WriteLine("Invalid input! Please enter an integer.\n");
+                Console.WriteLine("Invalid input! Please enter an integer.");
                 isValid = false;
             }
             else
@@ -64,12 +65,12 @@ class Program
                 // Detect if integer is within specified range
                 if (input < low)
                 {
-                    Console.WriteLine($"Invalid input! Integer is outside of acceptable range. Cannot be less than {low}.\n");
+                    Console.WriteLine($"Invalid input! Integer is outside of acceptable range. Cannot be less than {low}.");
                     isValid = false;
                 }
                 else if (input > high)
                 {
-                    Console.WriteLine($"Invalid input! Integer is outside of acceptable range. Cannot be greater than {high}.\n");
+                    Console.WriteLine($"Invalid input! Integer is outside of acceptable range. Cannot be greater than {high}.");
                     isValid = false;
                 }
                 else
@@ -79,6 +80,14 @@ class Program
             }
         }
         
+        return input;
+    }
+
+    // Prompts user to enter a string
+    public static string EnterString(string prompt)
+    {
+        Console.Write(prompt);
+        string input = Console.ReadLine();
         return input;
     }
 }

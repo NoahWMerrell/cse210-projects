@@ -6,12 +6,7 @@ public class Check
     protected int _disadvantage;
 
     // Constructors
-    public Check()
-    {
-        _bonus = Program.SelectInput("What is the bonus to the check? ", -30, 30);
-        _advantage = Program.SelectInput("What is the advantage value for the check? ", -30, 30);
-        _disadvantage = Program.SelectInput("What is the disadvantage value for the check? ", -30, 30);
-    }
+    public Check() {}
 
     public Check(int bonus)
     {
@@ -25,6 +20,14 @@ public class Check
         _bonus = bonus;
         _advantage = advantage;
         _disadvantage = disadvantage;
+    }
+
+    // Allows user to enter values for Check
+    public virtual void Set()
+    {
+        _bonus = Program.SelectInput("What is the bonus to the check? ", -30, 30);
+        _advantage = Program.SelectInput("What is the advantage value for the check? ", -30, 30);
+        _disadvantage = Program.SelectInput("What is the disadvantage value for the check? ", -30, 30);
     }
 
     // Rolls the Check and determines the result
