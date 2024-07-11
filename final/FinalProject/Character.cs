@@ -80,6 +80,7 @@ public class Character
         Console.WriteLine($"MD: {_mentalDefense}");
     }
 
+    // Sets the Physical Defense based off of the armor the user selects
     public void SetPD()
     {
         int input = Program.SelectInput($"1.  None\n2.  Light (Common)\n3.  Heavy (Common)\n4.  Light (Rare)\n5.  Heavy (Rare)\n6.  Light (Exotic)\n7.  Heavy (Exotic)\n8.  Unarmored Defense\nWhat type of armor is {_name} wearing? ", 1, 8);
@@ -134,6 +135,7 @@ public class Character
         }
     }
 
+    // Makes an attack against a target.
     public void Attack(Character target, Boolean mental)
     {
         if (mental == false)

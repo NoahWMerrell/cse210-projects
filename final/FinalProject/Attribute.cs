@@ -11,7 +11,7 @@ public class Attribute
         _modifier = modifier;
     }
 
-    // Getter
+    // Getters
     public string GetName()
     {
         return _name;

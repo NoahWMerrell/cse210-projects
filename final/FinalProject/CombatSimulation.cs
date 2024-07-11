@@ -20,11 +20,13 @@ public class CombatSimulation : Simulation
         _combatants = combatants;
     }
 
+    // Runs the simulation
     public override void Run()
     {
         // Run
     }
 
+    // Displays the results of the simulation
     public override void DisplayResults()
     {
         // DisplayResults

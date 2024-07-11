@@ -11,6 +11,7 @@ public class AttackSimulation : Simulation
         _results = new Dictionary<int, int>();
     }
 
+    // Runs the simulation
     public override void Run()
     {
         Console.WriteLine("Running simulation...");
@@ -29,6 +30,7 @@ public class AttackSimulation : Simulation
         DisplayResults();
     }
 
+    // Runs the simulation
     public override void DisplayResults()
     {
         Console.WriteLine("Simulation results:");

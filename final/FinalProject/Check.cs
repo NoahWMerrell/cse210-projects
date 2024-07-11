@@ -52,12 +52,6 @@ public class Check
             // Lowest three (or first three)
             sum = dice.Take(3).Sum();
         }
-        // dice.ForEach(Console.WriteLine); // For testing
         return sum + _bonus;
-    }
-
-    public void Select()
-    {
-        Program.SelectInput("", 1, 20);
     }
 }
