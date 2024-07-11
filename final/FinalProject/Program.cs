@@ -11,7 +11,7 @@ class Program
     public static void MenuLoop()
     {
         int input = 0;
-        while (input != 3)
+        while (input != 4)
         {
             Console.Clear();
             Console.WriteLine("Menu Options:\n  1. Check Simulation\n  2. Attack Simulation\n  3. Combat Simulation\n  4. Quit");
