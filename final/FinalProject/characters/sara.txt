@@ -1,0 +1,10 @@
+Sara
+1
+Might:-1
+Agility:2
+Cunning:3
+Influence:0
+15
+True
+False
+7,0,0,1,0

@@ -1,0 +1,10 @@
+Kyle
+1
+Might:3
+Agility:0
+Cunning:1
+Influence:0
+20
+False
+False
+7,0,0,1,0

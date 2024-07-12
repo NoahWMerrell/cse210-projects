@@ -40,9 +40,9 @@ class Program
             }
             else if (input == 4)
             {
-                // Create Character saved to file
+                // Create Character and save it to a file
                 Character character = new Character();
-                character.SaveCharacter("character.txt");
+                character.SaveCharacter();
             }
             else
             {

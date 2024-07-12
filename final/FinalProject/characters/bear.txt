@@ -1,0 +1,10 @@
+Bear
+1
+Might:3
+Agility:0
+Cunning:-2
+Influence:-2
+15
+False
+True
+5,0,0,1,0

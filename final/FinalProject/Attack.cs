@@ -77,4 +77,10 @@ public class Attack : Check
 
         return new Attack(bonus, advantage, disadvantage, baseDamage, defense);
     }
+
+    // Getter
+    public int GetDamage()
+    {
+        return _baseDamage;
+    }
 }

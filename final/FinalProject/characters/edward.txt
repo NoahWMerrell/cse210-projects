@@ -1,0 +1,10 @@
+Edward
+1
+Might:1
+Agility:3
+Cunning:0
+Influence:0
+16
+False
+False
+7,0,0,1,0

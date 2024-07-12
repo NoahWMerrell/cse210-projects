@@ -79,4 +79,10 @@ public class Check
         }
         return sum + _bonus;
     }
+
+    // Getter
+    public int GetBonus()
+    {
+        return _bonus;
+    }
 }

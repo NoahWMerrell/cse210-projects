@@ -1,0 +1,10 @@
+Goblin
+1
+Might:-1
+Agility:2
+Cunning:2
+Influence:0
+15
+False
+True
+6,1,0,1,0

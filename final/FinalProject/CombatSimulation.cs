@@ -11,8 +11,20 @@ public class CombatSimulation : Simulation
         int charNum = Program.SelectInput("How many combatants will there be? ", 2, 20);
         for (int i = 0; i < charNum; i++)
         {
+            Character character;
             Console.WriteLine($"----------------------------------\nCombatant #{i+1}\n----------------------------------");
-            Character character = new Character();
+            int createType = Program.SelectInput("Creation Type:\n  1. Create\n  2. Load\nWould you like to create a new character or load a previously made one? ", 1, 2);
+            if (createType == 1)
+            {
+                character = new Character();
+            }
+            else
+            {
+                character = Character.LoadCharacter();
+                character.Display();
+                Console.Write("You've successfully loaded this character! Press enter to continue: ");
+                Console.ReadLine();
+            }
             _combatants.Add(character);
         }
     }

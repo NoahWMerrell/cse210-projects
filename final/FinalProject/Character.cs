@@ -80,7 +80,16 @@ public class Character
     // Displays info for character
     public void Display()
     {
-        Console.WriteLine($"----------------------------------\n{_name}\n----------------------------------");
+        string hostileStr = "";
+        if (!_hostile)
+        {
+            hostileStr = "Friendly";
+        }
+        else
+        {
+            hostileStr = "Hostile";
+        }
+        Console.WriteLine($"----------------------------------\n{_name} ({hostileStr})\n----------------------------------");
         foreach (Attribute a in _attributes)
         {
             Console.WriteLine($"{a.GetName()}: {a.GetModifier()}");
@@ -90,6 +99,21 @@ public class Character
         Console.WriteLine($"Hit Points: {_hitPoints}");
         Console.WriteLine($"PD: {_physicalDefense}");
         Console.WriteLine($"MD: {_mentalDefense}");
+        string attackTypeStr;
+        if (_mentalAttack == false)
+        {
+            attackTypeStr = "Physical";
+        }
+        else
+        {
+            attackTypeStr = "Mental";
+        }
+        string positiveBonus = "";
+        if (_attack.GetBonus() >= 0)
+        {
+            positiveBonus = "+";
+        }
+        Console.WriteLine($"Attack: [{positiveBonus}{_attack.GetBonus()}] {_attack.GetDamage()} damage ({attackTypeStr})");
     }
 
     public void Status()
@@ -109,7 +133,7 @@ public class Character
     // Sets the Physical Defense based off of the armor the user selects
     public void SetPD()
     {
-        int input = Program.SelectInput($"1.  None\n2.  Light (Common)\n3.  Heavy (Common)\n4.  Light (Rare)\n5.  Heavy (Rare)\n6.  Light (Exotic)\n7.  Heavy (Exotic)\n8.  Unarmored Defense\nWhat type of armor is {_name} wearing? ", 1, 8);
+        int input = Program.SelectInput($"Armor:\n1.  None\n2.  Light (Common)\n3.  Heavy (Common)\n4.  Light (Rare)\n5.  Heavy (Rare)\n6.  Light (Exotic)\n7.  Heavy (Exotic)\n8.  Unarmored Defense\nWhat type of armor is {_name} wearing? ", 1, 8);
         if (input == 1)
         {
             _physicalDefense = 10 + _proficiency + _attributes[1].GetModifier();
@@ -140,7 +164,7 @@ public class Character
         }
         else
         {
-            int unarmoredInput = Program.SelectInput($"1.  Might\n2.  Cunning\n3.  Influence\nWhich attribute does {_name} use for Unarmored Defense? ", 1, 3);
+            int unarmoredInput = Program.SelectInput($"Unarmored Defense:\n1.  Might\n2.  Cunning\n3.  Influence\nWhich attribute does {_name} use for Unarmored Defense? ", 1, 3);
             if (unarmoredInput == 1)
             {
                 _physicalDefense = 10 + _proficiency + _attributes[1].GetModifier() + _attributes[0].GetModifier();
@@ -154,7 +178,7 @@ public class Character
                 _physicalDefense = 10 + _proficiency + _attributes[1].GetModifier() + _attributes[3].GetModifier();
             }
         }
-        int shieldInput = Program.SelectInput($"1.  Yes\n2.  No\nDoes {_name} have a shield equipped? ", 1, 2);
+        int shieldInput = Program.SelectInput($"Shield:\n1.  Yes\n2.  No\nDoes {_name} have a shield equipped? ", 1, 2);
         if (shieldInput == 1)
         {
             _physicalDefense += 2;
@@ -198,9 +222,10 @@ public class Character
     }
 
     // Save character to a file
-    public void SaveCharacter(string filePath)
+    public void SaveCharacter()
     {
-        using (StreamWriter writer = new StreamWriter(filePath))
+        string filename = Program.EnterString("What would you like to save the file as (do not include '.txt')? ") + ".txt";
+        using (StreamWriter writer = new StreamWriter("characters\\" + filename))
         {
             writer.WriteLine(_name);
             writer.WriteLine(_level);
@@ -216,9 +241,27 @@ public class Character
     }
 
     // Load character from a file
-    public static Character LoadCharacter(string filePath)
+    public static Character LoadCharacter()
     {
-        using (StreamReader reader = new StreamReader(filePath))
+        string filename = "";
+        Boolean fileExists = false;
+        while (!fileExists)
+        {
+            // Asks for filename to load
+            filename = Program.EnterString("What is the name of the file to load (do not include '.txt')? ") + ".txt";
+
+            // Determines if file exists
+            if (File.Exists("characters\\" + filename))
+            {
+                fileExists = true;
+            }
+            else
+            {
+                Console.WriteLine("File does not exist! Please enter a valid file.");
+            }
+        }
+
+        using (StreamReader reader = new StreamReader("characters\\" + filename))
         {
             string name = reader.ReadLine();
             int level = int.Parse(reader.ReadLine());
@@ -229,7 +272,6 @@ public class Character
                 attributes.Add(new Attribute(parts[0], int.Parse(parts[1])));
             }
             int physicalDefense = int.Parse(reader.ReadLine());
-            int mentalDefense = int.Parse(reader.ReadLine());
             bool mentalAttack = bool.Parse(reader.ReadLine());
             bool hostile = bool.Parse(reader.ReadLine());
             Attack attack = Attack.Deserialize(reader.ReadLine());
