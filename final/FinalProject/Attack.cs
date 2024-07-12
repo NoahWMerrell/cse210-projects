@@ -58,4 +58,23 @@ public class Attack : Check
     {
         _defense = defense;
     }
+
+    // Convert the attack to a string
+    public string Serialize()
+    {
+        return $"{_bonus},{_advantage},{_disadvantage},{_baseDamage},{_defense}";
+    }
+
+    // Load the attack from a string
+    public static Attack Deserialize(string data)
+    {
+        var parts = data.Split(',');
+        int bonus = int.Parse(parts[0]);
+        int advantage = int.Parse(parts[1]);
+        int disadvantage = int.Parse(parts[2]);
+        int baseDamage = int.Parse(parts[3]);
+        int defense = int.Parse(parts[4]);
+
+        return new Attack(bonus, advantage, disadvantage, baseDamage, defense);
+    }
 }

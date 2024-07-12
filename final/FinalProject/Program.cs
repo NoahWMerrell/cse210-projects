@@ -11,11 +11,11 @@ class Program
     public static void MenuLoop()
     {
         int input = 0;
-        while (input != 4)
+        while (input != 5)
         {
             Console.Clear();
-            Console.WriteLine("Menu Options:\n  1. Check Simulation\n  2. Attack Simulation\n  3. Combat Simulation\n  4. Quit");
-            input = SelectInput("Select a choice from the menu: ", 1, 4);
+            Console.WriteLine("Menu Options:\n  1. Check Simulation\n  2. Attack Simulation\n  3. Combat Simulation\n  4. Create Character\n  5. Quit");
+            input = SelectInput("Select a choice from the menu: ", 1, 5);
             if (input == 1)
             {
                 // Check Simulation
@@ -37,6 +37,12 @@ class Program
                 // Combat Simulation
                 CombatSimulation tempSim = new CombatSimulation(SelectInput("How many thousands of iterations would you like to run the simulation (input will be multiplied by 1,000)? ", 1, 100)*1000);
                 tempSim.Run();
+            }
+            else if (input == 4)
+            {
+                // Create Character saved to file
+                Character character = new Character();
+                character.SaveCharacter("character.txt");
             }
             else
             {

@@ -66,7 +66,7 @@ public class CombatSimulation : Simulation
                             int targetIndex = FindTarget(character);
                             if (targetIndex != -1)
                             {
-                                character.Attack(_combatants[targetIndex], i * 2, false);
+                                character.PerformAttack(_combatants[targetIndex], i * 2);
                             }
                             if (character.GetHostile())
                             {
@@ -89,14 +89,12 @@ public class CombatSimulation : Simulation
             }
             if (hostilesDefeated)
             {
-                // Console.WriteLine("Friendlies win!");
                 _friendlyWins++;
 
                 
             }
             else
             {
-                // Console.WriteLine("Hostiles win!");
                 _hostileWins++;
             }
         }

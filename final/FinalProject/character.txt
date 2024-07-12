@@ -1,0 +1,10 @@
+Billy
+1
+Might:1
+Agility:1
+Cunning:1
+Influence:1
+15
+False
+True
+1,1,1,1,0

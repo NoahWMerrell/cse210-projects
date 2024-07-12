@@ -13,6 +13,7 @@ public class Character
     private int _physicalDefense;
     private int _mentalDefense;
     private Attack _attack;
+    private Boolean _mentalAttack;
     private Boolean _hostile;
     private int _initiative;
 
@@ -35,6 +36,15 @@ public class Character
         _mentalDefense = 10 + _proficiency + _attributes[2].GetModifier() + _attributes[3].GetModifier();
         _attack = new Attack();
         _attack.CharacterSet();
+        int attackType = Program.SelectInput($"1.  Physical\n2.  Mental\nIs {_name}'s attack a Physical or Mental attack? ", 1, 2);
+        if (attackType == 1)
+        {
+            _mentalAttack = false;
+        }
+        else
+        {
+            _mentalAttack = true;
+        }
         int hostileInput = Program.SelectInput($"1.  Yes\n2.  No\nIs {_name} a hostile creature? ", 1, 2);
         if (hostileInput == 1)
         {
@@ -46,7 +56,7 @@ public class Character
         }
     }
 
-    public Character(string name, int level, int might, int agility, int cunning, int influence, int physicalDefense, Attack attack, Boolean hostile)
+    public Character(string name, int level, int might, int agility, int cunning, int influence, int physicalDefense, Attack attack, Boolean mentalAttack, Boolean hostile)
     {
         _name = name;
         _attributes = new List<Attribute>
@@ -63,6 +73,7 @@ public class Character
         _physicalDefense = physicalDefense;
         _mentalDefense = 10 + _proficiency + _attributes[2].GetModifier() + _attributes[3].GetModifier();
         _attack = attack;
+        _mentalAttack = mentalAttack;
         _hostile = hostile;
     }
 
@@ -151,9 +162,9 @@ public class Character
     }
 
     // Makes an attack against a target.
-    public void Attack(Character target, int disadvantage, Boolean mental)
+    public void PerformAttack(Character target, int disadvantage)
     {
-        if (mental == false)
+        if (_mentalAttack == false)
         {
             _attack.SetDefense(target.GetPD());
         }
@@ -184,6 +195,47 @@ public class Character
     public void ResetHP()
     {
         _currentHitPoints = _hitPoints;
+    }
+
+    // Save character to a file
+    public void SaveCharacter(string filePath)
+    {
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            writer.WriteLine(_name);
+            writer.WriteLine(_level);
+            foreach (Attribute attribute in _attributes)
+            {
+                writer.WriteLine($"{attribute.GetName()}:{attribute.GetModifier()}");
+            }
+            writer.WriteLine(_physicalDefense);
+            writer.WriteLine(_mentalAttack);
+            writer.WriteLine(_hostile);
+            writer.WriteLine(_attack.Serialize());
+        }
+    }
+
+    // Load character from a file
+    public static Character LoadCharacter(string filePath)
+    {
+        using (StreamReader reader = new StreamReader(filePath))
+        {
+            string name = reader.ReadLine();
+            int level = int.Parse(reader.ReadLine());
+            List<Attribute> attributes = new List<Attribute>();
+            for (int i = 0; i < 4; i++)
+            {
+                string[] parts = reader.ReadLine().Split(':');
+                attributes.Add(new Attribute(parts[0], int.Parse(parts[1])));
+            }
+            int physicalDefense = int.Parse(reader.ReadLine());
+            int mentalDefense = int.Parse(reader.ReadLine());
+            bool mentalAttack = bool.Parse(reader.ReadLine());
+            bool hostile = bool.Parse(reader.ReadLine());
+            Attack attack = Attack.Deserialize(reader.ReadLine());
+
+            return new Character(name, level, attributes[0].GetModifier(), attributes[1].GetModifier(), attributes[2].GetModifier(), attributes[3].GetModifier(), physicalDefense, attack, mentalAttack, hostile);
+        }
     }
 
     // Getters
