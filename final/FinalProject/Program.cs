@@ -7,7 +7,7 @@ class Program
     it warns the user and lets them type it in again. Additionally, polymorphism was used with the Simulation class as the parent and the CheckSimulation, Attack Simulation,
     and CombatSimulation as the three children inheriting certain abstract methods and attributes. The Attack class is a child of the Check class and the Character class
     utilizes the Attribute class for the four primary attributes each character has (Might, Agility, Cunning, Influence). The CombatSimulation class successfully runs a
-    combat encounter with each Character performing basic attacks against the opposing side.  
+    combat encounter with each Character performing basic attacks against the opposing side.
     */
     static void Main(string[] args)
     {
