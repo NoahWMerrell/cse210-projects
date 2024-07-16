@@ -198,14 +198,6 @@ public class Character
         }
         int damage = _attack.Damage(disadvantage);
         target._currentHitPoints -= damage;
-        // if (damage > 0)
-        // {
-        //     Console.WriteLine($"{_name} attacks {target._name} dealing {damage} damage!");
-        // }
-        // else
-        // {
-        //     Console.WriteLine($"{_name} attacks {target._name} and missed!");
-        // }
     }
 
     // Rolls initiative for character

@@ -56,8 +56,6 @@ public class CombatSimulation : Simulation
             {
                 hostilesDefeated = true;
                 nonHostilesDefeated = true;
-                // Console.Clear();
-                // Console.WriteLine($"----------------------------------\nRound #{round}\n----------------------------------");
 
                 // Run each round of combat
                 foreach (Character character in _combatants)
@@ -91,12 +89,6 @@ public class CombatSimulation : Simulation
                         }
                     }
                 }
-                // foreach (Character character in _combatants)
-                // {
-                //     character.Status();
-                // }
-                // Console.Write("Press enter to continue: ");
-                // Console.ReadLine();
                 round++;
             }
             if (hostilesDefeated)
